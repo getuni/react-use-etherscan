@@ -1,0 +1,49 @@
+{
+  "name": "react-use-etherscan",
+  "version": "0.0.1-alpha.0",
+  "description": "🌊 🏄 ⚛️ React hooks for interacting with Etherscan. Supports Android/iOS/Web/Expo.",
+  "main": "dist",
+  "repository": "https://github.com/cawfree/react-use-etherscan",
+  "author": "Alex Thomas (@cawfree) <hello@cawfree.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "yarn ; babel src --plugins @babel/plugin-transform-typescript --extensions '.ts,.tsx' --out-dir dist ; rm -rf node_modules",
+    "prettify": "yarn prettier --write '**/*.tsx|**/*.ts'"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "ethereum",
+    "web3",
+    "testnet",
+    "etherscan",
+    "ropsten",
+    "rinkeby"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-typescript": "^7.11.0",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "husky": "^4.2.5",
+    "jest": "^26.4.0",
+    "leasot": "^11.1.0",
+    "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.0",
+    "etherscan-api": "^10.0.5",
+    "type-check": "^0.4.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1"
+  }
+}

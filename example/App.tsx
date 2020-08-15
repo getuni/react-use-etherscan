@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 
-export default function App() {
+import EtherscanProvider, {
+  useEtherscan,
+  useBalance,
+  useTransactionList,
+} from "./lib";
+
+function ConsumeEtherscan() {
+  const [loading, balance, error] = useTransactionList({
+    address: "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
+  });
+  console.warn(loading, balance, error);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "green",
+      }}
+    />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <EtherscanProvider apiKey="">
+      <View style={StyleSheet.absoluteFill}>
+        <SafeAreaView />
+        <ConsumeEtherscan />
+        <SafeAreaView />
+      </View>
+    </EtherscanProvider>
+  );
+}
