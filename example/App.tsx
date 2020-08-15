@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 
-import EtherscanProvider, {
-  useEtherscan,
-  useBalance,
-  useTransactionList,
-} from "./lib";
+import EtherscanProvider, { useEtherscan, useBalance, useTransactionList } from "react-use-etherscan";
 
 function ConsumeEtherscan() {
   const [loading, balance, error] = useTransactionList({

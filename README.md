@@ -13,12 +13,7 @@ yarn add react-use-etherscan
 
 ```javascript
 import React, { useState, useEffect } from 'react';
-
-import EtherscanProvider, {
-  useEtherscan,
-  useBalance,
-  useTransactionList,
-} from "./lib";
+import EtherscanProvider, { useEtherscan, useBalance, useTransactionList } from "react-use-etherscan";
 
 function TransactionList({ address }) {
   const [loading, balance, error] = useTransactionList({ address });
