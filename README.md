@@ -16,8 +16,8 @@ import React, { useState, useEffect } from 'react';
 import EtherscanProvider, { useEtherscan, useBalance, useTransactionList } from "react-use-etherscan";
 
 function TransactionList({ address }) {
-  const [loading, balance, error] = useTransactionList({ address });
-  console.warn(loading, balance, error);
+  const [loading, transactions, error] = useTransactionList({ address });
+  console.warn(loading, transactions, error);
   return null;
 }
 
