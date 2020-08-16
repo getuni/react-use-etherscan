@@ -14,6 +14,7 @@ export default function useEtherscanStateful() {
       try {
         setLoading(true);
         setResult(await fn(etherscan));
+        setError(null);
       } catch (error) {
         setResult(null);
         setError(error);
