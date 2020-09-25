@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { typeCheck } from "type-check";
 
 import { useEtherscanStateful } from ".";
@@ -22,10 +22,11 @@ const fetchTransactionList = address => async ({ account }) => {
 };
 
 export default function useTransactionList({ address }: useTransactionListArgs) {
-  const [query, loading, result, error] = useEtherscanStateful();
-  useEffect(
-    () => query(fetchTransactionList(address)) && undefined,
-    [query, address],
-  );
-  return [loading, result, error];
+  const { query, loading, result, error } = useEtherscanStateful();
+
+  const refetch = useCallback(() => query(fetchTransactionList(address)), [query, address]);
+
+  useEffect(() => refetch() && undefined, [refetch]);
+
+  return { loading, result, error, refetch };
 };

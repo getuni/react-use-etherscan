@@ -4,26 +4,20 @@ import { useEtherscan } from ".";
 
 export default function useEtherscanStateful() {
   const etherscan = useEtherscan();
-
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [state, setState] = useState({ result: null, loading: true, error: null });
 
   const query = useCallback(
     fn => (async () => {
       try {
-        setLoading(true);
-        setResult(await fn(etherscan));
-        setError(null);
+        setState(s => ({ ...s, loading: true, error: null }));
+        const result = await fn(etherscan);
+        setState({ result, loading: false });
       } catch (error) {
-        setResult(null);
-        setError(error);
-      } finally {
-        setLoading(false);
+        setState({ loading: false, result: null, error });
       }
     })() && undefined,
-    [etherscan, setResult, setLoading, setError],
+    [etherscan, setState],
   );
 
-  return [query,  loading, result, error];
+  return { ...state, query };
 }

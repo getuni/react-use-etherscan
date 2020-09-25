@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import BigNumber from "bignumber.js";
 import { typeCheck } from "type-check";
 
@@ -23,12 +23,13 @@ const fetchBalance = address => async ({ account }) => {
 };
 
 const useBalance = ({ address }: useBalanceArgs) => {
-  const [query, loading, result, error] = useEtherscanStateful();
-  useEffect(
-    () => query(fetchBalance(address)) && undefined,
-    [query, address],
-  );
-  return [loading, result, error];
+  const { query, loading, result, error } = useEtherscanStateful();
+
+  const refetch = useCallback(() => query(fetchBalance(address)), [query, address]);
+
+  useEffect(() => refetch() && undefined, [query, address]);
+
+  return { loading, result, refetch, error };
 };
 
 export default useBalance;

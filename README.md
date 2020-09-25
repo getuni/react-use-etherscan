@@ -1,6 +1,10 @@
 # react-use-etherscan
 🌊 🏄 ⚛️ React hooks for interacting with Etherscan. Supports Android/iOS/Web/Expo. This is a [**lifecycle-aware**](https://reactjs.org/docs/state-and-lifecycle.html) wrapper around [**etherscan-api**](https://github.com/sebs/etherscan-api).
 
+### Migration Notes
+  - When migrating from versions < `0.1.0-alpha.0`, using arrays to return information has been replaced with hooks, i.e.
+    - `[loading, data, error]` becomes `{ loading, data, error, refetch }`.
+
 ## 🚀 Getting Started
 
 Using [`yarn`](https://yarnpkg.com):
