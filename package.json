@@ -1,6 +1,6 @@
 {
   "name": "react-use-etherscan",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "🌊 🏄 ⚛️ React hooks for interacting with Etherscan. Supports Android/iOS/Web/Expo.",
   "main": "dist",
   "repository": "https://github.com/cawfree/react-use-etherscan",
