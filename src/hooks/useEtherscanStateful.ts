@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useEtherscan } from ".";
 
 export default function useEtherscanStateful() {
-  const etherscan = useEtherscan();
+  const { api: etherscan } = useEtherscan();
   const [state, setState] = useState({ result: null, loading: true, error: null });
 
   const query = useCallback(

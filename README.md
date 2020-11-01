@@ -20,36 +20,40 @@ import React, { useState, useEffect } from 'react';
 import EtherscanProvider, { useEtherscan, useBalance, useTransactionList } from "react-use-etherscan";
 
 function TransactionList({ address }) {
-  const [loading, transactions, error] = useTransactionList({ address });
-  console.warn(loading, transactions, error);
+  const { loading, result, error } = useTransactionList({ address });
+  console.warn(loading, result, error);
   return null;
 }
 
 function BalanceOf({ address }) {
-  const [loading, balance, error] = useBalance({ address });
-  console.warn(loading, balance, error);
+  const { loading, result, error } = useBalance({ address });
+  console.warn(loading, result, error);
   return null;
 }
 
 function EthPrice() {
-  const { stats } = useEtherscan();
+  const { api: { stats } } = useEtherscan();
   useEffect(
     () => (async () => {
       const {result} = await stats.ethprice();
-      console.warn(result);
+      console.warn('stats', result);
     })() && undefined,
     [stats],
   );
   return null;
 }
 
+
 export default function App() {
-  const [address] = useState("0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae");
+  const [address] = useState("0x2b58Af5592Ad3a14A6851a19b0b37012d5d497cF");
   return (
-    <EtherscanProvider apiKey="your-api-key">
-      <TransactionList address={address} />
+    <EtherscanProvider
+      apiKey="your-api-key"
+      network="rinkeby"
+    >
       <BalanceOf address={address} />
       <EthPrice />
+      <TransactionList address={address} />
     </EtherscanProvider>
   );
 }

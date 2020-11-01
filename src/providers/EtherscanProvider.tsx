@@ -36,7 +36,15 @@ function EtherscanProvider({
     timeout,
     setApi,
   ]);
-  return <EtherscanContext.Provider value={api} {...extras} />;
+  return (
+    <EtherscanContext.Provider
+      value={{
+        api,
+        network,
+      }}
+      {...extras}
+    />
+  );
 }
 
 EtherscanProvider.propTypes = {

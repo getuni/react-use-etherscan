@@ -1,55 +1,41 @@
-import React, { useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
-
+import React, { useState, useEffect } from 'react';
 import EtherscanProvider, { useEtherscan, useBalance, useTransactionList } from "react-use-etherscan";
 
-function ConsumeTransactionList() {
-  const {loading, result, error, refetch} = useTransactionList({
-    address: "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
-  });
-  console.warn('transaction', loading, result, error);
-  return (
-    <TouchableOpacity
-      onPress={refetch}
-      style={{
-        flex: 1,
-        backgroundColor: "green",
-      }}
-    />
-  );
+function TransactionList({ address }) {
+  const {loading, result, error} = useTransactionList({ address });
+  console.warn(loading, result, error);
+  return null;
 }
 
-function ConsumeBalance() {
-  const {loading, result, error, refetch} = useBalance({
-    address: "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
-  });
-  console.warn('balance', loading, result, error);
-  return (
-    <TouchableOpacity
-      onPress={refetch}
-      style={{
-        flex: 1,
-        backgroundColor: "orange",
-      }}
-    />
-  );
+function BalanceOf({ address }) {
+  const {loading, result, error} = useBalance({ address });
+  console.warn(loading, result, error);
+  return null;
 }
+
+function EthPrice() {
+  const { api: { stats } } = useEtherscan();
+  useEffect(
+    () => (async () => {
+      const {result} = await stats.ethprice();
+      console.warn('stats', result);
+    })() && undefined,
+    [stats],
+  );
+  return null;
+}
+
 
 export default function App() {
+  const [address] = useState("0x2b58Af5592Ad3a14A6851a19b0b37012d5d497cF");
   return (
-    <EtherscanProvider apiKey="">
-      <View style={StyleSheet.absoluteFill}>
-        <SafeAreaView />
-        <ConsumeTransactionList />
-        <ConsumeBalance />
-        <SafeAreaView />
-      </View>
+    <EtherscanProvider
+      apiKey="your-api-key"
+      network="rinkeby"
+    >
+      <BalanceOf address={address} />
+      <EthPrice />
+      <TransactionList address={address} />
     </EtherscanProvider>
   );
 }

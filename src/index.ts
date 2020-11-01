@@ -1,2 +1,2 @@
 export { EtherscanProvider as default } from "./providers";
-export { useEtherscan, useBalance, useTransactionList } from "./hooks";
+export { useEtherscan, useEtherscanUrls, useBalance, useTransactionList } from "./hooks";
