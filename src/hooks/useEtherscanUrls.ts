@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useEtherscan } from "./useEtherscan";
+import useEtherscan from "./useEtherscan";
 
 export type useEtherscanUrlsResult = {
   getTransactionUrl: (hash: string) => string;
