@@ -20,6 +20,9 @@ function createClient(
   } else if (typeof network !== "string" || network.length <= 0) {
     throw new Error(`Expected String network, encountered ${network}.`);
   }
+  if (network === "mainnet") {
+    return init(apiKey);
+  }
   return init(apiKey, network, timeout);
 }
 

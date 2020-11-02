@@ -13,7 +13,7 @@ export default function useEtherscanStateful() {
         const result = await fn(etherscan);
         setState({ result, loading: false });
       } catch (error) {
-        setState({ loading: false, result: null, error });
+        setState({ loading: false, result: null, error: new Error(error) });
       }
     })() && undefined,
     [etherscan, setState],

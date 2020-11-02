@@ -1,41 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import EtherscanProvider, { useEtherscan, useBalance, useTransactionList } from "react-use-etherscan";
+import { Text, ActivityIndicator } from "react-native";
 
-function TransactionList({ address }) {
-  const {loading, result, error} = useTransactionList({ address });
-  console.warn(loading, result, error);
-  return null;
+import EtherscanProvider, { useTokenBalance } from "react-use-etherscan";
+
+function SimplePrint({
+  prefix,
+  result,
+  loading,
+  error,
+}: {
+  prefix: string,
+  result: unknown,
+  loading: boolean,
+  error: Error | null
+}) {
+  if (loading) {
+    return <ActivityIndicator />
+  } else if (error) {
+    return <Text style={{ color: 'red' }} children={error.message} />
+  }
+  return <Text children={`${prefix} ${JSON.stringify(result)}`}/>;
 }
 
-function BalanceOf({ address }) {
-  const {loading, result, error} = useBalance({ address });
-  console.warn(loading, result, error);
-  return null;
+function NazBalance() {
+  const tokenBalance = useTokenBalance({
+    address: "0x312e71162Df834A87a2684d30562b94816b0f072",
+    tokenName: "",
+    contractAddress: "0x4BBBD966ea913545aD556045b7aF18f52A0aE91c",
+  });
+  return <SimplePrint prefix="@cawfree's balance in $NAZ: " {...tokenBalance} />
 }
 
-function EthPrice() {
-  const { api: { stats } } = useEtherscan();
-  useEffect(
-    () => (async () => {
-      const {result} = await stats.ethprice();
-      console.warn('stats', result);
-    })() && undefined,
-    [stats],
-  );
-  return null;
-}
-
-
-export default function App() {
-  const [address] = useState("0x2b58Af5592Ad3a14A6851a19b0b37012d5d497cF");
+export default function App(): JSX.Element {
   return (
-    <EtherscanProvider
-      apiKey="your-api-key"
-      network="rinkeby"
-    >
-      <BalanceOf address={address} />
-      <EthPrice />
-      <TransactionList address={address} />
+    <EtherscanProvider apiKey="your-api-key" network="mainnet">
+      <NazBalance />
     </EtherscanProvider>
   );
 }
