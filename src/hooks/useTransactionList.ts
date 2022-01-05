@@ -15,7 +15,7 @@ const fetchTransactionList = address => async ({ account }) => {
     throw new Error(`Expected ${TYPEDEF_TRANSACTION_LIST}, encountered ${data}.`);
   }
   const { message, result } = data;
-  if (message !== "OK") {
+  if (!message.startsWith("OK")) {
     throw new Error(JSON.stringify(data));
   }
   return result;
